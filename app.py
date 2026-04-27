@@ -207,8 +207,9 @@ if st.session_state.current_page == "Diagnostics":
     # --- TIER 2: INSIGHTS & CONTROLS ---
     mcol1, mcol2 = st.columns([1, 2], gap="large")
 
+    import textwrap
     with mcol1:
-        st.markdown(f"""
+        st.markdown(textwrap.dedent(f"""
         <div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
                 <h3 style="margin: 0; font-size: 1.2rem;">Model Insights</h3>
@@ -243,7 +244,7 @@ if st.session_state.current_page == "Diagnostics":
             
             <div id="retrain-btn-hook"></div>
         </div>
-        """, unsafe_allow_html=True)
+        """), unsafe_allow_html=True)
         # Using Streamlit button overlaid conceptually
         st.markdown("<div style='margin-top: -65px;'></div>", unsafe_allow_html=True)
         if st.button("RETRAIN MODEL", use_container_width=True):
@@ -251,11 +252,10 @@ if st.session_state.current_page == "Diagnostics":
                 time.sleep(2)
                 retrain_model()
                 st.rerun()
-
     with mcol2:
         mo_status = "ON" if st.session_state.manual_override else "OFF"
         
-        st.markdown(f"""
+        st.markdown(textwrap.dedent(f"""
         <div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
                 <h3 style="margin: 0; font-size: 1.2rem;">Diagnostic Control Panel</h3>
@@ -284,7 +284,7 @@ if st.session_state.current_page == "Diagnostics":
                 </div>
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """), unsafe_allow_html=True)
         
         with st.container():
             st.markdown("<div style='margin-top: -380px;'></div>", unsafe_allow_html=True)
