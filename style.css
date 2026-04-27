@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --primary: #4edea3;
+    --on-primary: #003824;
+    --background: #0b1326;
+    --surface: #171f33;
+    --surface-variant: #222a3d;
+    --text-main: #dae2fd;
+    --text-dim: #bbcabf;
+    --emerald-glow: rgba(78, 222, 163, 0.2);
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, .font-manrope {
+    font-family: 'Manrope', sans-serif;
+}
+
+.glass-panel {
+    backdrop-filter: blur(12px);
+    background: rgba(23, 31, 51, 0.6);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+    border-color: rgba(78, 222, 163, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.metric-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: #3c4a5e; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* Animation */
+@keyframes pulse-emerald {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.animate-pulse-emerald {
+    animation: pulse-emerald 2s infinite;
+}
+
+/* Table Styling */
+.data-table tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.status-pill {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+}
+
+.status-normal { background: rgba(78, 222, 163, 0.1); color: #4edea3; border: 1px solid rgba(78, 222, 163, 0.2); }
+.status-risk { background: rgba(255, 120, 134, 0.1); color: #ff7886; border: 1px solid rgba(255, 120, 134, 0.2); }
+.status-optimal { background: rgba(78, 222, 163, 0.2); color: #4edea3; border: 1px solid #4edea3; }
+
+/* Override Streamlit Defaults */
+.stApp {
+    background-color: var(--background);
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #060e20 !important;
+    border-right: 1px solid var(--border);
+}
+
+.stSlider [data-baseweb="slider"] {
+    width: 100%;
+}
