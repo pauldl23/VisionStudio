@@ -207,44 +207,38 @@ if st.session_state.current_page == "Diagnostics":
     # --- TIER 2: INSIGHTS & CONTROLS ---
     mcol1, mcol2 = st.columns([1, 2], gap="large")
 
-    import textwrap
     with mcol1:
-        st.markdown(f"""
-<div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
-        <h3 style="margin: 0; font-size: 1.2rem;">Model Insights</h3>
-        <span style="color: #6e7a8a;">ℹ️</span>
-    </div>
-    
-    <div style="margin-bottom: 25px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-            <span style="font-size: 13px; font-weight: 600;">Linear Regression</span>
-            <span style="color: #4edea3; font-weight: 800;">{st.session_state.accuracy}%</span>
-        </div>
-        <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <div style="width: {st.session_state.accuracy}%; height: 100%; background: #4edea3; border-radius: 10px;"></div>
-        </div>
-        <p style="font-size: 11px; color: #6e7a8a; margin-top: 8px;">Accuracy score for refractive error prediction</p>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px;">
-        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌐</span> <span style="font-size: 13px;">Neural Weights</span></div>
-            <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.model_version}</span>
-        </div>
-        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌲</span> <span style="font-size: 13px;">Decision Trees</span></div>
-            <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.active_models} Active</span>
-        </div>
-        <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">⚡</span> <span style="font-size: 13px;">Pruning Rate</span></div>
-            <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">14.2%</span>
-        </div>
-    </div>
-    
-    <div id="retrain-btn-hook"></div>
+        model_insights_html = f"""<div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px; margin-bottom: 20px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+<h3 style="margin: 0; font-size: 1.2rem;">Model Insights</h3>
+<span style="color: #6e7a8a;">ℹ️</span>
 </div>
-""", unsafe_allow_html=True)
+<div style="margin-bottom: 25px;">
+<div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+<span style="font-size: 13px; font-weight: 600;">Linear Regression</span>
+<span style="color: #4edea3; font-weight: 800;">{st.session_state.accuracy}%</span>
+</div>
+<div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+<div style="width: {st.session_state.accuracy}%; height: 100%; background: #4edea3; border-radius: 10px;"></div>
+</div>
+<p style="font-size: 11px; color: #6e7a8a; margin-top: 8px;">Accuracy score for refractive error prediction</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px;">
+<div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌐</span> <span style="font-size: 13px;">Neural Weights</span></div>
+<span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.model_version}</span>
+</div>
+<div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌲</span> <span style="font-size: 13px;">Decision Trees</span></div>
+<span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.active_models} Active</span>
+</div>
+<div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">⚡</span> <span style="font-size: 13px;">Pruning Rate</span></div>
+<span style="font-family: monospace; font-size: 12px; color: #bbcabf;">14.2%</span>
+</div>
+</div>
+</div>"""
+        st.write(model_insights_html, unsafe_allow_html=True)
         # Using Streamlit button overlaid conceptually
         st.markdown("<div style='margin-top: -65px;'></div>", unsafe_allow_html=True)
         if st.button("RETRAIN MODEL", use_container_width=True):
@@ -252,39 +246,32 @@ if st.session_state.current_page == "Diagnostics":
                 time.sleep(2)
                 retrain_model()
                 st.rerun()
+
     with mcol2:
         mo_status = "ON" if st.session_state.manual_override else "OFF"
-        
-        st.markdown(f"""
-<div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
-        <h3 style="margin: 0; font-size: 1.2rem;">Diagnostic Control Panel</h3>
-        <span class="status-pill status-risk">MANUAL OVERRIDE: {mo_status}</span>
-    </div>
-    
-    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;">
-        <div style="display: flex; flex-direction: column; gap: 30px;">
-            <!-- Streamlit Column Placeholders -->
-            <div id="slider-container-1"></div>
-            <div id="slider-container-2"></div>
-        </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 20px;">
-            <div id="input-container-1"></div>
-            <div style="display: grid; grid-cols: 1fr 1fr; gap: 12px; display: flex;">
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; flex: 1;">
-                    <span style="font-size: 10px; font-weight: 800; color: #6e7a8a; display: block; margin-bottom: 5px;">OCULAR DRIFT</span>
-                    <h4 style="margin: 0; font-size: 1.4rem; color: #4edea3;">{drift}</h4>
-                </div>
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; flex: 1;">
-                    <span style="font-size: 10px; font-weight: 800; color: #6e7a8a; display: block; margin-bottom: 5px;">TEAR STABILITY</span>
-                    <h4 style="margin: 0; font-size: 1.4rem; color: #4edea3;">{tear}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
+        control_panel_html = f"""<div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+<h3 style="margin: 0; font-size: 1.2rem;">Diagnostic Control Panel</h3>
+<span class="status-pill status-risk">MANUAL OVERRIDE: {mo_status}</span>
 </div>
-""", unsafe_allow_html=True)
+<div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;">
+<div style="display: flex; flex-direction: column; gap: 30px;">
+<div style="height: 150px; border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #6e7a8a; font-size: 12px;">Visual Frequency Wavefront [Live]</div>
+<div style="height: 150px; border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #6e7a8a; font-size: 12px;">Neural Convergence Map [Sync]</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; flex: 1;">
+<span style="font-size: 10px; font-weight: 800; color: #6e7a8a; display: block; margin-bottom: 5px;">OCULAR DRIFT</span>
+<h4 style="margin: 0; font-size: 1.4rem; color: #4edea3;">{drift}</h4>
+</div>
+<div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; flex: 1;">
+<span style="font-size: 10px; font-weight: 800; color: #6e7a8a; display: block; margin-bottom: 5px;">TEAR STABILITY</span>
+<h4 style="margin: 0; font-size: 1.4rem; color: #4edea3;">{tear}</h4>
+</div>
+</div>
+</div>
+</div>"""
+        st.write(control_panel_html, unsafe_allow_html=True)
         
         with st.container():
             st.markdown("<div style='margin-top: -380px;'></div>", unsafe_allow_html=True)
