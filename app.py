@@ -7,7 +7,7 @@ import random
 # --- SETUP ---
 st.set_page_config(
     page_title="VisionStudio | Clinical Intelligence",
-    page_icon="👁️",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -107,16 +107,16 @@ with st.sidebar:
     </style>
     """, unsafe_allow_html=True)
 
-    st.button("👁️ Diagnostics", use_container_width=True, on_click=nav_to, args=("Diagnostics",))
-    st.button("👥 Patient Flow", use_container_width=True, on_click=nav_to, args=("Patient Flow",))
-    st.button("🧠 Model Insights", use_container_width=True, on_click=nav_to, args=("Model Insights",))
-    st.button("🔍 Explorer", use_container_width=True, on_click=nav_to, args=("Explorer",))
-    st.button("📊 Lab Reports", use_container_width=True, on_click=nav_to, args=("Lab Reports",))
+    st.button("Diagnostics", use_container_width=True, on_click=nav_to, args=("Diagnostics",))
+    st.button("Patient Flow", use_container_width=True, on_click=nav_to, args=("Patient Flow",))
+    st.button("Model Insights", use_container_width=True, on_click=nav_to, args=("Model Insights",))
+    st.button("Explorer", use_container_width=True, on_click=nav_to, args=("Explorer",))
+    st.button("Lab Reports", use_container_width=True, on_click=nav_to, args=("Lab Reports",))
     
     st.divider()
     st.markdown("### SYSTEM")
-    st.button("🖥️ System Status", use_container_width=True, on_click=nav_to, args=("System Status",))
-    st.button("⚙️ Preferences", use_container_width=True, on_click=nav_to, args=("Preferences",))
+    st.button("System Status", use_container_width=True, on_click=nav_to, args=("System Status",))
+    st.button("Preferences", use_container_width=True, on_click=nav_to, args=("Preferences",))
 
 # --- MAIN HEADER ---
 csv_data = st.session_state.patients_df.to_csv(index=False).encode('utf-8')
@@ -135,17 +135,17 @@ with col_h2:
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([1,1,1])
     with c1:
-        search_term = st.text_input("🔍 Search diagnostics...", label_visibility="collapsed")
+        search_term = st.text_input("Search diagnostics...", label_visibility="collapsed")
     with c2:
         st.download_button(
-            label="💾 Export Dataset",
+            label="Export Dataset",
             data=csv_data,
             file_name='vision_studio_patient_flow.csv',
             mime='text/csv',
             use_container_width=True
         )
     with c3:
-        st.button("➕ New Analysis", on_click=reset_analysis, type="primary", use_container_width=True)
+        st.button("New Analysis", on_click=reset_analysis, type="primary", use_container_width=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -190,7 +190,7 @@ if st.session_state.current_page == "Diagnostics":
         <div class="glass-panel" style="padding: 20px; border-radius: 16px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                 <p style="font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #bbcabf;">ACTIVE MODELS</p>
-                <span style="color: #4edea3;">⚙️</span>
+                <span style="color: #4edea3; font-size: 10px;">IDN</span>
             </div>
             <h2 style="font-size: 2.2rem; font-weight: 800; margin: 0;">{st.session_state.active_models}</h2>
             <div style="display: flex; gap: 4px; margin-top: 15px;">
@@ -210,8 +210,8 @@ if st.session_state.current_page == "Diagnostics":
     with mcol1:
         model_insights_html = f"""<div class="glass-panel" style="padding: 20px; border-radius: 16px; min-height: 480px; margin-bottom: 20px;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
-<h3 style="margin: 0; font-size: 1.2rem;">Model Insights</h3>
-<span style="color: #6e7a8a;">ℹ️</span>
+<h3 style="margin: 0; font-size: 1.2rem;">Model</h3>
+<span style="color: #6e7a8a; font-size: 10px;">DATA</span>
 </div>
 <div style="margin-bottom: 25px;">
 <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
@@ -225,15 +225,15 @@ if st.session_state.current_page == "Diagnostics":
 </div>
 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px;">
 <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌐</span> <span style="font-size: 13px;">Neural Weights</span></div>
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3; font-size: 10px;">NET</span> <span style="font-size: 13px;">Neural Weights</span></div>
 <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.model_version}</span>
 </div>
 <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">🌲</span> <span style="font-size: 13px;">Decision Trees</span></div>
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3; font-size: 10px;">TREE</span> <span style="font-size: 13px;">Decision Trees</span></div>
 <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">{st.session_state.active_models} Active</span>
 </div>
 <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3;">⚡</span> <span style="font-size: 13px;">Pruning Rate</span></div>
+<div style="display: flex; align-items: center; gap: 10px;"><span style="color: #4edea3; font-size: 10px;">FAST</span> <span style="font-size: 13px;">Pruning Rate</span></div>
 <span style="font-family: monospace; font-size: 12px; color: #bbcabf;">14.2%</span>
 </div>
 </div>
@@ -294,8 +294,8 @@ elif st.session_state.current_page in ["Explorer", "Patient Flow"]:
                 <h3 style="margin: 0; font-size: 1.2rem;">Raw Intelligence Explorer</h3>
                 <p style="font-size: 10px; font-weight: 800; color: #6e7a8a; margin-top: 5px; text-transform: uppercase; letter-spacing: 2px;">Historical Patient Metrics</p>
             </div>
-            <div style="display: flex; gap: 10px; color: #6e7a8a;">
-                <span>🔍</span> <span>📥</span>
+            <div style="display: flex; gap: 10px; color: #6e7a8a; font-size: 10px; font-weight: 800;">
+                <span>ACTIVE</span>
             </div>
         </div>
     </div>
@@ -326,7 +326,7 @@ elif st.session_state.current_page in ["Explorer", "Patient Flow"]:
         </div>
         """, unsafe_allow_html=True)
         row[4].markdown(f"<div class='status-pill {p['class']}'>{p['inf']}</div>", unsafe_allow_html=True)
-        row[5].markdown("🔗")
+        row[5].markdown("-")
 
     st.markdown(f"""
     <div style="padding: 15px 20px; color: #6e7a8a; font-size: 11px; font-weight: 700; letter-spacing: 1px; display: flex; justify-content: space-between;">
@@ -338,7 +338,7 @@ elif st.session_state.current_page in ["Explorer", "Patient Flow"]:
 else:
     st.markdown(f"""
     <div style="display: flex; justify-content:center; align-items:center; height: 400px; flex-direction:column; color:#6e7a8a;">
-        <h1 style="font-size: 4rem; margin-bottom:10px;">🚧</h1>
+        <h1 style="font-size: 4rem; margin-bottom:10px;">STATUS</h1>
         <h2>{st.session_state.current_page}</h2>
         <p>This module is currently under development.</p>
     </div>
